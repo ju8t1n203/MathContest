@@ -2,7 +2,7 @@
 'RCET0265
 'Fall24
 'Math Contest
-'link
+'https://github.com/ju8t1n203/MathContest
 
 Option Compare Text
 Option Explicit On
@@ -28,6 +28,7 @@ Public Class MathContest
     'textboxes-------------------------
     Private Sub AgeTextBox_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles AgeTextBox.Validating
         Dim age As Integer
+        'confirms the inputed age is acceptable
         If Integer.TryParse(AgeTextBox.Text, age) Then
             If age < 7 OrElse age > 11 Then
                 MsgBox("Student is not eligible to compete.")
@@ -41,7 +42,7 @@ Public Class MathContest
 
     Private Sub GradeTextBox_validating(sender As Object, e As EventArgs) Handles GradeTextBox.Validating
         Dim grade As Integer
-
+        'confirms the inputed grade is acceptable
         If Integer.TryParse(GradeTextBox.Text, grade) Then
             If grade < 1 OrElse grade > 4 Then
                 MsgBox("Student is not eligible to compete.")
@@ -53,7 +54,7 @@ Public Class MathContest
 
     Private Sub StudentAnswerTextBox_Validating(sender As Object, e As EventArgs) Handles StudentAnswerTextBox.Validating
         Dim answer As Integer
-
+        'checks the answer box for an integer value
         If Integer.TryParse(StudentAnswerTextBox.Text, answer) Then
         Else
             MsgBox("Please enter a whole number.")
@@ -73,7 +74,7 @@ Public Class MathContest
     Sub GetNumbers()
         Dim _first As Integer
         Dim _second As Integer
-
+        'generates numbers based off of the inputed grade
         Do
             Select Case (GradeTextBox.Text)
                 Case "1"
@@ -100,7 +101,7 @@ Public Class MathContest
                 Case True
                     Exit Do
             End Select
-
+            'ensures that the two numbers to be divided result in an integer
             Select Case DivisionRadioButton.Checked
                 Case True
                     If _first Mod _second = 0 Then
@@ -112,7 +113,7 @@ Public Class MathContest
                 Case True
                     Exit Do
             End Select
-
+            'makes sure the subtraction will result in an integer
             Select Case SubtractionRadioButton.Checked
                 Case True
                     If _first > _second Then
@@ -134,7 +135,7 @@ Public Class MathContest
         sAnswer = CInt(StudentAnswerTextBox.Text)
         _first = CInt(FirstNumberTextBox.Text)
         _second = CInt(SecondNumberTextBox.Text)
-
+        'program calculates correct answer
         Select Case MultipliactionRadioButton.Checked
             Case True
                 rAnswer = _first * _second
@@ -163,6 +164,7 @@ Public Class MathContest
             MsgBox($"Incorrect, correct answer is :{rAnswer}")
             total = +1
         End If
+        'this should update the summary array
         summaryArray = Summary(correct, total)
 
         GetNumbers()
@@ -173,7 +175,7 @@ Public Class MathContest
     Private Sub SummaryButton_Click(sender As Object, e As EventArgs) Handles SummaryButton.Click
         Dim correctValue As Integer = summaryArray(0, 0)
         Dim totalValue As Integer = summaryArray(0, 1)
-
+        'should display # of correct answers vs total questions presented
         MsgBox($"{correctValue} out of {totalValue}")
     End Sub
 
@@ -188,7 +190,7 @@ Public Class MathContest
 
     Function Summary(correct As Integer, total As Integer) As Integer(,)
         Dim _summary(0, 1) As Integer
-
+        'pulls the summary values from the array
         _summary(0, 0) = correct
         _summary(0, 1) = total
 
